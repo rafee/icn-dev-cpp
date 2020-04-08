@@ -13,7 +13,7 @@ Follow these steps to open this sample in a container:
 2. To use this repository, you can either open the repository in an isolated Docker volume:
 
     - Press <kbd>F1</kbd> and select the **Remote-Containers: Try a Sample...** command.
-    - Choose the "Node" sample, wait for the container to start and try things out!
+    - Choose the "C++" sample, wait for the container to start and try things out!
         > **Note:** Under the hood, this will use **Remote-Containers: Open Repository in Container...** command to clone the source code in a Docker volume instead of the local filesystem.
 
    Or open a locally cloned copy of the code:
