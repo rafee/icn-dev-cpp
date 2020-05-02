@@ -26,20 +26,8 @@ RUN apt-get update \
     #
     # Install C++ tools
     && apt-get -y install build-essential cmake cppcheck valgrind libcpprest-dev libboost-all-dev pkg-config libsqlite3-dev\
-    # #
-    # # [Optional] Update UID/GID if needed
-    # && if [ "$USER_GID" != "1000" ] || [ "$USER_UID" != "1000" ]; then \
-    # groupmod --gid $USER_GID $USERNAME \
-    # && usermod --uid $USER_UID --gid $USER_GID $USERNAME \
-    # && chown -R $USER_UID:$USER_GID /home/$USERNAME; \
-    # fi \
     #
     # Clone ndn-cxx and install version suitable for 16.04
-    # && curl https://github.com/named-data/ndn-cxx/archive/ndn-cxx-0.7.0.tar.gz \
-    # | tar -xvf /tmp/ndn \
-    # && ./tmp/ndn/waf configure \
-    # && ./tmp/ndn/waf \
-    # && sudo ./tmp/ndn/waf install \
     && git clone https://github.com/named-data/ndn-cxx \
     && cd ndn-cxx \
     && git checkout 9603325ba6e35a0b985c77e074b77e3a3e7030ea \
@@ -50,7 +38,6 @@ RUN apt-get update \
     #
     # Clean ndn-cxx
     && cd .. && rm -rf ndn-cxx \
-    # && cd .. && rm -rf ndn-cxx-* \
     #
     # Clean up
     && apt-get autoremove -y \
