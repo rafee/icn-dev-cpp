@@ -22,7 +22,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     #
     # Install C++ tools
-    && apt-get -y install build-essential cmake cppcheck valgrind libcpprest-dev libboost-all-dev \
+    && apt-get -y install build-essential cmake cppcheck valgrind libcpprest-dev libboost-all-dev pkg-config libsqlite3-dev\
     #
     # [Optional] Update UID/GID if needed
     && if [ "$USER_GID" != "1000" ] || [ "$USER_UID" != "1000" ]; then \
@@ -30,6 +30,17 @@ RUN apt-get update \
     && usermod --uid $USER_UID --gid $USER_GID $USERNAME \
     && chown -R $USER_UID:$USER_GID /home/$USERNAME; \
     fi \
+    #
+    # Clone ndn-cxx and install version suitable for 16.04
+    && wget https://github.com/named-data/ndn-cxx/archive/ndn-cxx-0.7.0.tar.gz \
+    && tar -xvf ndn-cxx-0.7.0.tar.gz \
+    && cd ndn-cxx-ndn-cxx-0.7.0 \
+    && ./waf configure \
+    && ./waf install \
+    && ldconfig \
+    #
+    # Clean ndn-cxx
+    && rm -rf ndn-cxx-* \
     #
     # Clean up
     && apt-get autoremove -y \
