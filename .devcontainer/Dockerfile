@@ -46,7 +46,12 @@ RUN apt-get update \
 
 #
 # Clone blackadder and install version suitable for 16.04
-RUN git clone https://github.com/rafee/blackadder \
+RUN git clone https://github.com/kohler/click \
+    && cd click \
+    && ./configure --disable-linuxmodule \
+    && make && make install \
+    && cd .. && rm -rf click \
+    && git clone https://github.com/rafee/blackadder \
     && cd blackadder \
     && apt-get update \
     && ./make-all-clean.sh \
