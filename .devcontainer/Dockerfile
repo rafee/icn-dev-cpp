@@ -41,8 +41,8 @@ RUN apt-get update \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-# [Optional] Set the default user. Omit if you want to keep the default as root.
-USER $USERNAME
+# # [Optional] Set the default user. Omit if you want to keep the default as root.
+# USER $USERNAME
 
 #
 # Clone blackadder and install version suitable for 16.04
