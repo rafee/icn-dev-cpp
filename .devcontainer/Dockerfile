@@ -40,7 +40,7 @@ RUN apt-get update \
     && ldconfig \
     #
     # Clean ndn-cxx
-    && rm -rf ndn-cxx-* \
+    && cd .. && rm -rf ndn-cxx-* \
     #
     # Clean up
     && apt-get autoremove -y \
