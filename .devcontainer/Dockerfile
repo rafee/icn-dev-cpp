@@ -54,7 +54,7 @@ RUN git clone https://github.com/kohler/click \
     && git clone https://github.com/rafee/blackadder \
     && cd blackadder \
     && apt-get update \
-    && ./make-all-clean.sh \
+    && ./make-all-libs.sh \
     && cd .. && rm -rf blackadder \
     # Clean up
     && apt-get autoremove -y \
