@@ -32,15 +32,16 @@ RUN apt-get update \
     fi \
     #
     # Clone ndn-cxx and install version suitable for 16.04
-    && wget https://github.com/named-data/ndn-cxx/archive/ndn-cxx-0.7.0.tar.gz \
-    && tar -xvf ndn-cxx-0.7.0.tar.gz \
-    && cd ndn-cxx-ndn-cxx-0.7.0 \
+    && git clone https://github.com/named-data/ndn-cxx \
+    # && tar -xvf ndn-cxx-0.7.0.tar.gz \
+    && cd ndn-cxx \
+    && git checkout 9603325ba6e35a0b985c77e074b77e3a3e7030ea \
     && ./waf configure \
     && ./waf install \
     && ldconfig \
     #
     # Clean ndn-cxx
-    && cd .. && rm -rf ndn-cxx-* \
+    && cd .. && rm -rf ndn-cxx \
     #
     # Clean up
     && apt-get autoremove -y \
