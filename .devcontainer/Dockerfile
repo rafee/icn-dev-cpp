@@ -48,6 +48,7 @@ RUN apt-get update \
 # Clone blackadder and install version suitable for 16.04
 RUN git clone https://github.com/rafee/blackadder \
     && cd blackadder \
+    && apt-get update \
     && ./make-all-clean.sh \
     && cd .. && rm -rf blackadder \
     # Clean up
