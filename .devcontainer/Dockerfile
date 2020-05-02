@@ -18,9 +18,6 @@ ARG USER_GID=$USER_UID
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
 
-# [Optional] Set the default user. Omit if you want to keep the default as root.
-# USER $USERNAME
-
 # Configure apt and install packages
 RUN apt-get update \
     #
@@ -39,6 +36,20 @@ RUN apt-get update \
     # Clean ndn-cxx
     && cd .. && rm -rf ndn-cxx \
     #
+    # Clean up
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# [Optional] Set the default user. Omit if you want to keep the default as root.
+USER $USERNAME
+
+#
+# Clone blackadder and install version suitable for 16.04
+RUN git clone https://github.com/rafee/blackadder \
+    && cd blackadder \
+    && ./make-all-clean.sh \
+    && cd .. && rm -rf blackadder \
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \

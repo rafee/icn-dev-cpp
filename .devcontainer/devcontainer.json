@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.112.0/containers/cpp
 {
-	"name": "NDN-PURSUIT-CPP",
+	"name": "icn-dev-cpp",
 	"dockerFile": "Dockerfile",
 	"runArgs": [
 		"--cap-add=SYS_PTRACE",
@@ -16,7 +16,6 @@
 	"extensions": [
 		"ms-vscode.cpptools",
 		"ms-azuretools.vscode-docker",
-		"vscodevim.vim"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
