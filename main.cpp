@@ -10,7 +10,6 @@ using namespace std;
 using namespace web;
 using namespace http;
 using namespace utility;
-// using namespace http::experimental::listener;
 
 std::unique_ptr<handler> g_httpHandler;
 
@@ -34,11 +33,7 @@ void on_shutdown()
     return;
 }
 
-#ifdef _WIN32
-int wmain(int argc, wchar_t *argv[])
-#else
 int main(int argc, char *argv[])
-#endif
 {
     utility::string_t port = U("34568");
     if (argc == 2)

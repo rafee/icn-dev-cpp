@@ -337,3 +337,6 @@ build/
 
 # Visual Studio Code local workspace settings
 .vscode/
+
+# Media files
+*.mp4
