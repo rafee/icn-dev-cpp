@@ -333,4 +333,7 @@ ASALocalRun/
 *.out
 
 # Build folder for the project
-build/*
+build/
+
+# Visual Studio Code local workspace settings
+.vscode
