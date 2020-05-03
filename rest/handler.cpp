@@ -4,103 +4,102 @@ handler::handler()
 {
     //ctor
 }
-handler::handler(utility::string_t url):m_listener(url)
+handler::handler(utility::string_t url) : m_listener(url)
 {
-    m_listener.support(methods::GET, std::bind(&handler::handle_get, this, std::placeholders::_1));
-    m_listener.support(methods::PUT, std::bind(&handler::handle_put, this, std::placeholders::_1));
-    m_listener.support(methods::POST, std::bind(&handler::handle_post, this, std::placeholders::_1));
-    m_listener.support(methods::DEL, std::bind(&handler::handle_delete, this, std::placeholders::_1));
-
+    m_listener.support(http::methods::GET, std::bind(&handler::handle_get, this, std::placeholders::_1));
+    m_listener.support(http::methods::PUT, std::bind(&handler::handle_put, this, std::placeholders::_1));
+    m_listener.support(http::methods::POST, std::bind(&handler::handle_post, this, std::placeholders::_1));
+    m_listener.support(http::methods::DEL, std::bind(&handler::handle_delete, this, std::placeholders::_1));
 }
 handler::~handler()
 {
     //dtor
 }
 
-void handler::handle_error(pplx::task<void>& t)
+void handler::handle_error(pplx::task<void> &t)
 {
     try
     {
         t.get();
     }
-    catch(...)
+    catch (...)
     {
         // Ignore the error, Log it if a logger is available
     }
 }
 
-
 //
-// Get Request 
+// Get Request
 //
-void handler::handle_get(http_request message)
+void handler::handle_get(http::http_request message)
 {
-    ucout <<  message.to_string() << endl;
+    ucout << message.to_string() << std::endl;
 
-    auto paths = http::uri::split_path(http::uri::decode(message.relative_uri().path()));
+    // auto paths = http::uri::split_path(http::uri::decode(message.relative_uri().path()));
 
-    message.relative_uri().path();
-	//Dbms* d  = new Dbms();
-    //d->connect();
+    auto resourceURI = message.relative_uri();
+    auto queryString = resourceURI.query();
+    std::cout << queryString << std::endl;
 
-      concurrency::streams::fstream::open_istream(U("Big_Buck_Bunny_1080_10s_20MB.mp4"), std::ios::in).then([=](concurrency::streams::istream is)
-    {
-        message.reply(status_codes::OK, is,  U("video/mp4"))
-		.then([](pplx::task<void> t)
-		{
-			try{
-				t.get();
-			}
-			catch(...){
-				//
-			}
-	});
-    }).then([=](pplx::task<void>t)
-	{
-		try{
-			t.get();
-		}
-		catch(...){
-			message.reply(status_codes::InternalError,U("INTERNAL ERROR "));
-		}
-	});
+    auto filePath = "static/" + queryString;
+
+    concurrency::streams::fstream::open_istream(U(filePath), std::ios::in).then([=](concurrency::streams::istream is) {
+                                                                              message.reply(http::status_codes::OK, is, U("video/mp4"))
+                                                                                  .then([](pplx::task<void> t) {
+                                                                                      try
+                                                                                      {
+                                                                                          t.get();
+                                                                                      }
+                                                                                      catch (...)
+                                                                                      {
+                                                                                          //
+                                                                                      }
+                                                                                  });
+                                                                          })
+        .then([=](pplx::task<void> t) {
+            try
+            {
+                t.get();
+            }
+            catch (...)
+            {
+                message.reply(http::status_codes::InternalError, U("INTERNAL ERROR "));
+            }
+        });
 
     return;
-
 };
 
 //
 // A POST request
 //
-void handler::handle_post(http_request message)
+void handler::handle_post(http::http_request message)
 {
-    ucout <<  message.to_string() << endl;
+    ucout << message.to_string() << std::endl;
 
-
-     message.reply(status_codes::OK,message.to_string());
-    return ;
+    message.reply(http::status_codes::OK, message.to_string());
+    return;
 };
 
 //
 // A DELETE request
 //
-void handler::handle_delete(http_request message)
+void handler::handle_delete(http::http_request message)
 {
-     ucout <<  message.to_string() << endl;
+    ucout << message.to_string() << std::endl;
 
-        string rep = U("WRITE YOUR OWN DELETE OPERATION");
-      message.reply(status_codes::OK,rep);
+    std::string rep = U("WRITE YOUR OWN DELETE OPERATION");
+    message.reply(http::status_codes::OK, rep);
     return;
 };
 
-
 //
-// A PUT request 
+// A PUT request
 //
-void handler::handle_put(http_request message)
+void handler::handle_put(http::http_request message)
 {
-    ucout <<  message.to_string() << endl;
-     string rep = U("WRITE YOUR OWN PUT OPERATION");
-     message.reply(status_codes::OK,rep);
+    ucout << message.to_string() << std::endl;
+    std::string rep = U("WRITE YOUR OWN PUT OPERATION");
+    message.reply(http::status_codes::OK, rep);
     return;
 };

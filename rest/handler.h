@@ -6,11 +6,8 @@
 #include <cpprest/filestream.h>
 #include <cpprest/http_listener.h>
 
-using namespace std;
-using namespace web;
-using namespace http;
-using namespace utility;
-using namespace http::experimental::listener;
+namespace http = web::http;
+namespace listener = http::experimental::listener;
 
 class handler
 {
@@ -24,12 +21,12 @@ public:
 
 protected:
 private:
-    void handle_get(http_request message);
-    void handle_put(http_request message);
-    void handle_post(http_request message);
-    void handle_delete(http_request message);
+    void handle_get(http::http_request message);
+    void handle_put(http::http_request message);
+    void handle_post(http::http_request message);
+    void handle_delete(http::http_request message);
     void handle_error(pplx::task<void> &t);
-    http_listener m_listener;
+    listener::http_listener m_listener;
 };
 
 #endif // HANDLER_H

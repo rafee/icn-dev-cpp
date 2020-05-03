@@ -3,20 +3,12 @@
 
 #include "handler.h"
 
-#include <cpprest/http_client.h>
-#include <cpprest/filestream.h>
-
-using namespace std;
-using namespace web;
-using namespace http;
-using namespace utility;
-
 std::unique_ptr<handler> g_httpHandler;
 
-void on_initialize(const string_t &address)
+void on_initialize(const utility::string_t &address)
 {
 
-    uri_builder uri(address);
+    http::uri_builder uri(address);
 
     auto addr = uri.to_uri().to_string();
     g_httpHandler = std::unique_ptr<handler>(new handler(addr));
