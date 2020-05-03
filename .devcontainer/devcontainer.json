@@ -16,6 +16,8 @@
 	"extensions": [
 		"ms-vscode.cpptools",
 		"ms-azuretools.vscode-docker",
+		"twxs.cmake",
+		"ms-vscode.cmake-tools"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
