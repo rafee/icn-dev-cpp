@@ -22,7 +22,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN if [ "$USER_GID" != "1000" ] || [ "$USER_UID" != "1000" ]; then \
         groupmod --gid $USER_GID $USERNAME \
         && usermod --uid $USER_UID --gid $USER_GID $USERNAME \
-        && chown -R $USER_UID:$USER_GID /home/$USERNAME;
+        && chown -R $USER_UID:$USER_GID /home/$USERNAME; \
+        fi
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
