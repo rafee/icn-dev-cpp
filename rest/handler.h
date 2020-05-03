@@ -1,5 +1,5 @@
-#ifndef REST_H
-#define REST_H
+#ifndef HANDLER_H
+#define HANDLER_H
 #include <iostream>
 
 #include <cpprest/http_client.h>

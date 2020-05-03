@@ -16,3 +16,9 @@ include(CPack)
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Link the executable to the Hello library. Since the Hello library has
+# public include directories we will use those link directories when building
+# helloDemo
+add_subdirectory(rest)
+target_link_libraries (icn-dev LINK_PUBLIC rest boost_system cpprest crypto ssl)

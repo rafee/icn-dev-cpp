@@ -336,4 +336,4 @@ ASALocalRun/
 build/
 
 # Visual Studio Code local workspace settings
-.vscode
+.vscode/
