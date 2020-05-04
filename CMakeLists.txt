@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(icn-dev VERSION 0.1.0)
 
+# include(FindPkgConfig)
+# pkg_check_modules(CURLPP REQUIRED curlpp)
+
 include(CTest)
 enable_testing()
 

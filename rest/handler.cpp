@@ -33,28 +33,25 @@ void handler::handle_error(pplx::task<void> &t)
 //
 void handler::handle_get(http::http_request message)
 {
-    ucout << message.to_string() << std::endl;
-
-    // auto paths = http::uri::split_path(http::uri::decode(message.relative_uri().path()));
-
-    auto resourceURI = message.relative_uri();
+    std::cout << message.to_string() << std::endl;
+    auto resourceURI = message.request_uri();
+    std::cout << resourceURI.to_string() << std::endl;
     auto queryString = resourceURI.query();
     std::cout << queryString << std::endl;
 
     auto filePath = "static/" + queryString;
 
     concurrency::streams::fstream::open_istream(U(filePath), std::ios::in).then([=](concurrency::streams::istream is) {
-                                                                              message.reply(http::status_codes::OK, is, U("video/mp4"))
-                                                                                  .then([](pplx::task<void> t) {
-                                                                                      try
-                                                                                      {
-                                                                                          t.get();
-                                                                                      }
-                                                                                      catch (...)
-                                                                                      {
-                                                                                          //
-                                                                                      }
-                                                                                  });
+                                                                              message.reply(http::status_codes::OK, is, U("video/mp4")).then([](pplx::task<void> t) {
+                                                                                  try
+                                                                                  {
+                                                                                      t.get();
+                                                                                  }
+                                                                                  catch (...)
+                                                                                  {
+                                                                                      //
+                                                                                  }
+                                                                              });
                                                                           })
         .then([=](pplx::task<void> t) {
             try
