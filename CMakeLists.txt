@@ -10,7 +10,7 @@ enable_testing()
 add_executable(icn-dev main.cpp)
 
 # Setting C++11 using flags
-SET(CMAKE_CXX_FLAGS "-std=c++11 -O3")
+SET(CMAKE_CXX_FLAGS "-std=c++14 -O3")
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
