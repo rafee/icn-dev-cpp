@@ -1,0 +1,3 @@
+[submodule "icn-examples"]
+	path = icn-examples
+	url = https://github.com/rafee/icn-examples
